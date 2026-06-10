@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Dheeksha P M – Data Science Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0B0F1A;
+    --surface: #111827;
+    --surface2: #1a2236;
+    --accent: #6EE7B7;
+    --accent2: #818CF8;
+    --accent3: #F472B6;
+    --text: #E2E8F0;
+    --muted: #64748B;
+    --border: rgba(110,231,183,0.15);
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-display);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 4rem;
+    background: rgba(11,15,26,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-mono);
+    color: var(--accent);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Signature element: animated data-grid background */
+  .grid-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(110,231,183,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(110,231,183,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    animation: gridDrift 20s linear infinite;
+  }
+  @keyframes gridDrift {
+    from { background-position: 0 0; }
+    to   { background-position: 48px 48px; }
+  }
+
+  .glow {
+    position: absolute; width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(110,231,183,0.08) 0%, transparent 70%);
+    top: 10%; left: 60%; z-index: 0;
+    animation: pulse 6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); opacity: 0.6; }
+    50%      { transform: scale(1.15); opacity: 1; }
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 800px; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.35rem 0.9rem;
+    background: rgba(110,231,183,0.1);
+    border: 1px solid var(--border);
+    border-radius: 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+  }
+  .hero-badge::before { content: '▶'; font-size: 0.6rem; }
+
+  h1 {
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.25rem;
+  }
+  h1 .name-accent { color: var(--accent); }
+
+  .hero-title {
+    font-family: var(--font-mono);
+    color: var(--accent2);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .hero-bio {
+    color: var(--muted);
+    max-width: 560px;
+    font-size: 1.05rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.75;
+  }
+
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    padding: 0.8rem 1.8rem;
+    background: var(--accent);
+    color: var(--bg);
+    border: none; border-radius: 0.4rem;
+    font-family: var(--font-display);
+    font-size: 0.9rem; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: #a7f3d0; transform: translateY(-2px); }
+
+  .btn-outline {
+    padding: 0.8rem 1.8rem;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 0.4rem;
+    font-family: var(--font-display);
+    font-size: 0.9rem; font-weight: 500;
+    cursor: pointer; text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { background: rgba(110,231,183,0.08); transform: translateY(-2px); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .stat-item { text-align: left; }
+  .stat-num {
+    font-size: 2rem; font-weight: 700; color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em;
+    text-transform: uppercase; margin-top: 0.25rem;
+  }
+
+  /* ── SECTION GENERIC ── */
+  section { padding: 6rem 4rem; }
+  .section-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+    line-height: 1.1;
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--surface); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 1.75rem;
+    transition: border-color 0.25s, transform 0.2s;
+  }
+  .skill-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+  .skill-icon {
+    width: 40px; height: 40px; border-radius: 0.4rem;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; margin-bottom: 1rem;
+  }
+  .skill-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+  .tag {
+    padding: 0.2rem 0.6rem;
+    background: rgba(110,231,183,0.08);
+    border: 1px solid rgba(110,231,183,0.2);
+    border-radius: 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--bg); }
+  .exp-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 2rem 2.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .exp-card::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent2));
+  }
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+  .exp-role { font-size: 1.1rem; font-weight: 600; }
+  .exp-company { color: var(--accent); font-size: 0.9rem; font-weight: 500; margin-top: 0.1rem; }
+  .exp-date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem; color: var(--muted);
+    background: rgba(110,231,183,0.07);
+    padding: 0.3rem 0.75rem;
+    border-radius: 2rem;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .exp-list { list-style: none; }
+  .exp-list li {
+    padding: 0.4rem 0;
+    font-size: 0.9rem;
+    color: #94A3B8;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+  .exp-list li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--accent); font-size: 0.8rem;
+  }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--surface); }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 2rem;
+    transition: all 0.25s;
+    display: flex; flex-direction: column;
+  }
+  .project-card:hover {
+    border-color: var(--accent2);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
+  .project-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent2);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+  .project-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
+  .project-card p { color: var(--muted); font-size: 0.9rem; flex: 1; line-height: 1.7; }
+  .project-techs { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.25rem; }
+  .project-tech {
+    padding: 0.2rem 0.6rem;
+    background: rgba(129,140,248,0.08);
+    border: 1px solid rgba(129,140,248,0.2);
+    border-radius: 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--accent2);
+  }
+
+  /* ── EDUCATION ── */
+  #education { background: var(--bg); }
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 2rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;
+  }
+  .edu-degree { font-size: 1.1rem; font-weight: 600; }
+  .edu-institution { color: var(--muted); font-size: 0.9rem; margin-top: 0.3rem; }
+  .edu-cgpa {
+    font-family: var(--font-mono);
+    font-size: 2rem; font-weight: 700;
+    color: var(--accent);
+    text-align: right;
+  }
+  .edu-cgpa-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    text-align: right;
+  }
+
+  /* ── CERTIFICATIONS ── */
+  #certifications { background: var(--surface); }
+  .cert-card {
+    display: flex; gap: 1.5rem; align-items: flex-start;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: 1.5rem 2rem;
+    transition: border-color 0.2s;
+  }
+  .cert-card:hover { border-color: var(--accent3); }
+  .cert-icon {
+    font-size: 1.5rem;
+    width: 50px; height: 50px;
+    background: rgba(244,114,182,0.1);
+    border-radius: 0.5rem;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .cert-name { font-weight: 600; margin-bottom: 0.25rem; }
+  .cert-issuer { color: var(--muted); font-size: 0.85rem; }
+  .cert-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    margin-top: 0.75rem;
+    font-family: var(--font-mono); font-size: 0.72rem;
+    color: var(--accent3);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--accent3);
+    padding-bottom: 1px;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--bg);
+    text-align: center;
+  }
+  #contact h2 { margin-bottom: 1rem; }
+  #contact p { color: var(--muted); max-width: 480px; margin: 0 auto 2.5rem; }
+  .contact-links {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  }
+  .contact-chip {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.7rem 1.4rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2rem;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+  .contact-chip:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(110,231,183,0.06);
+  }
+  .contact-chip span { font-size: 1rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+  }
+  footer p { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0; transform: translateY(24px);
+    animation: fadeIn 0.7s ease forwards;
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.35s; }
+  .delay-4 { animation-delay: 0.5s; }
+  .delay-5 { animation-delay: 0.65s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+    .projects-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; text-align: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .grid-bg { animation: none; }
+    .glow { animation: none; }
+    .fade-in { animation: none; opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">dheeksha.pm</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="grid-bg"></div>
+  <div class="glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge fade-in">AI & Data Science Student · Open to Internships</div>
+    <h1 class="fade-in delay-1">
+      <span class="name-accent">Dheeksha</span><br/>P M
+    </h1>
+    <div class="hero-title fade-in delay-2">// Data Science · Machine Learning · Analytics</div>
+    <p class="hero-bio fade-in delay-3">
+      3rd-year B.E. student building ML models, dashboards, and data pipelines. 
+      I turn messy datasets into clean insights — and clean insights into decisions.
+    </p>
+    <div class="hero-actions fade-in delay-4">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="mailto:pmdheeksha.1510@gmail.com" class="btn-outline">Get In Touch</a>
+    </div>
+    <div class="hero-stats fade-in delay-5">
+      <div class="stat-item">
+        <div class="stat-num">9.2</div>
+        <div class="stat-label">CGPA</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">2+</div>
+        <div class="stat-label">Projects Built</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">2mo</div>
+        <div class="stat-label">Industry Experience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Core Skills</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-eyebrow">What I work with</div>
+  <h2>Skills &amp; Tools</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon" style="background:rgba(110,231,183,0.1)">🐍</div>
+      <h3>Programming</h3>
+      <p style="color:var(--muted);font-size:0.87rem;">Writing clean, efficient Python code for data pipelines, automation, and ML workflows.</p>
+      <div class="skill-tags">
+        <span class="tag">Python</span>
+        <span class="tag">NumPy</span>
+        <span class="tag">Pandas</span>
+        <span class="tag">Scikit-Learn</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon" style="background:rgba(129,140,248,0.1)">🗄️</div>
+      <h3>Database & SQL</h3>
+      <p style="color:var(--muted);font-size:0.87rem;">Extracting insights from relational databases using complex queries and aggregations.</p>
+      <div class="skill-tags">
+        <span class="tag" style="color:var(--accent2);background:rgba(129,140,248,0.08);border-color:rgba(129,140,248,0.2)">SQL</span>
+        <span class="tag" style="color:var(--accent2);background:rgba(129,140,248,0.08);border-color:rgba(129,140,248,0.2)">JOIN / GROUP BY</span>
+        <span class="tag" style="color:var(--accent2);background:rgba(129,140,248,0.08);border-color:rgba(129,140,248,0.2)">Subqueries</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon" style="background:rgba(244,114,182,0.1)">📊</div>
+      <h3>Visualization</h3>
+      <p style="color:var(--muted);font-size:0.87rem;">Building interactive dashboards and reports that make data stories easy to understand.</p>
+      <div class="skill-tags">
+        <span class="tag" style="color:var(--accent3);background:rgba(244,114,182,0.08);border-color:rgba(244,114,182,0.2)">Power BI</span>
+        <span class="tag" style="color:var(--accent3);background:rgba(244,114,182,0.08);border-color:rgba(244,114,182,0.2)">DAX</span>
+        <span class="tag" style="color:var(--accent3);background:rgba(244,114,182,0.08);border-color:rgba(244,114,182,0.2)">Excel KPI Dashboards</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon" style="background:rgba(110,231,183,0.1)">🤖</div>
+      <h3>Machine Learning</h3>
+      <p style="color:var(--muted);font-size:0.87rem;">Building, training, and evaluating supervised and unsupervised ML models end-to-end.</p>
+      <div class="skill-tags">
+        <span class="tag">Supervised ML</span>
+        <span class="tag">Unsupervised ML</span>
+        <span class="tag">Model Evaluation</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon" style="background:rgba(129,140,248,0.1)">🔬</div>
+      <h3>Data Analysis</h3>
+      <p style="color:var(--muted);font-size:0.87rem;">From raw data to clean, reliable datasets ready for analysis and insight generation.</p>
+      <div class="skill-tags">
+        <span class="tag" style="color:var(--accent2);background:rgba(129,140,248,0.08);border-color:rgba(129,140,248,0.2)">EDA</span>
+        <span class="tag" style="color:var(--accent2);background:rgba(129,140,248,0.08);border-color:rgba(129,140,248,0.2)">Data Cleaning</span>
+        <span class="tag" style="color:var(--accent2);background:rgba(129,140,248,0.08);border-color:rgba(129,140,248,0.2)">Preprocessing</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-eyebrow">Where I've worked</div>
+  <h2>Experience</h2>
+  <div class="exp-card">
+    <div class="exp-header">
+      <div>
+        <div class="exp-role">Data Analyst Intern</div>
+        <div class="exp-company">Alpha Pixel Media</div>
+      </div>
+      <div class="exp-date">Jan 2026 – Present · 2 months</div>
+    </div>
+    <ul class="exp-list">
+      <li>Designed dynamic KPI dashboards in Excel to track performance metrics and business trends</li>
+      <li>Performed data cleaning, transformation, and validation to improve reporting accuracy</li>
+      <li>Executed complex SQL queries using JOIN, GROUP BY, HAVING, and Subqueries to extract actionable insights</li>
+      <li>Supported data analysis for a Metabolism Level Analysis project using SQL and Excel</li>
+      <li>Improved reporting efficiency by structuring datasets for clearer visualization and interpretation</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-eyebrow">Things I've built</div>
+  <h2>Projects</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-num">PROJECT 01</div>
+      <h3>Brain Tumour Detection</h3>
+      <p>A Python-based ML model to detect brain tumours from MRI images. Built end-to-end: data preprocessing, feature extraction, model training, and evaluation using accuracy, precision, and confusion matrix metrics.</p>
+      <div class="project-techs">
+        <span class="project-tech">Python</span>
+        <span class="project-tech">Scikit-Learn</span>
+        <span class="project-tech">NumPy</span>
+        <span class="project-tech">Pandas</span>
+        <span class="project-tech">ML Evaluation</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">PROJECT 02</div>
+      <h3>Student Details Analysis Dashboard</h3>
+      <p>An interactive Power BI dashboard to analyze student academic data. Implemented KPIs, slicers, custom visualizations, and basic DAX measures to surface data-driven insights for educators.</p>
+      <div class="project-techs">
+        <span class="project-tech">Power BI</span>
+        <span class="project-tech">DAX</span>
+        <span class="project-tech">Data Modeling</span>
+        <span class="project-tech">KPIs</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">PROJECT 03</div>
+      <h3>Metabolism Level Analysis</h3>
+      <p>Data analysis project at Alpha Pixel Media. Used SQL queries and Excel to clean, structure, and analyze metabolic data, resulting in improved reporting accuracy and actionable business insights.</p>
+      <div class="project-techs">
+        <span class="project-tech">SQL</span>
+        <span class="project-tech">Excel</span>
+        <span class="project-tech">EDA</span>
+        <span class="project-tech">Data Validation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-eyebrow">Academic background</div>
+  <h2>Education</h2>
+  <div class="edu-card">
+    <div>
+      <div class="edu-degree">B.E. Artificial Intelligence &amp; Data Science</div>
+      <div class="edu-institution">Sri Shanmugha College of Engineering and Technology · 2023 – 2027</div>
+      <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+        <span class="tag">Machine Learning</span>
+        <span class="tag">Data Structures</span>
+        <span class="tag">Statistics</span>
+        <span class="tag">AI Fundamentals</span>
+      </div>
+    </div>
+    <div>
+      <div class="edu-cgpa">9.2</div>
+      <div class="edu-cgpa-label">CGPA</div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-eyebrow">Credentials</div>
+  <h2>Certifications</h2>
+  <div class="cert-card">
+    <div class="cert-icon">🎓</div>
+    <div>
+      <div class="cert-name">Python for Data Science</div>
+      <div class="cert-issuer">Udemy · Self-paced · Python, Data Analysis, Machine Learning</div>
+      <a href="https://ude.my/UC-31941c0c-e373-43a6-88ef-a3bae81aa8f1" class="cert-link" target="_blank">
+        View Certificate ↗
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-eyebrow">Let's connect</div>
+  <h2>Get In Touch</h2>
+  <p>I'm actively looking for internship and entry-level Data Science opportunities. If you're hiring or just want to talk data, I'd love to hear from you.</p>
+  <div class="contact-links">
+    <a href="mailto:pmdheeksha.1510@gmail.com" class="contact-chip">
+      <span>✉️</span> pmdheeksha.1510@gmail.com
+    </a>
+    <a href="tel:+919003793276" class="contact-chip">
+      <span>📞</span> +91 9003793276
+    </a>
+    <a href="https://www.linkedin.com/in/dheekshapm" class="contact-chip" target="_blank">
+      <span>💼</span> LinkedIn
+    </a>
+    <a href="https://github.com/pmdheeksha" class="contact-chip" target="_blank">
+      <span>🐙</span> GitHub
+    </a>
+    <a href="https://www.kaggle.com/pmdheeksha" class="contact-chip" target="_blank">
+      <span>📈</span> Kaggle
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Dheeksha P M · Krishnagiri, Tamil Nadu</p>
+  <p>Built for recruiters. Powered by data.</p>
+</footer>
+
+</body>
+</html>
